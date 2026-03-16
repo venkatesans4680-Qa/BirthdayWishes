@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Birthday, My Love 💖</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,600&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Dancing+Script:wght@500;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --rose:    #f7a8c4;
+      --deep:    #c0547a;
+      --blush:   #fce4ec;
+      --lavender:#e8d5f5;
+      --gold:    #f0d080;
+      --night:   #1a0a2e;
+      --midnight:#2d1050;
+      --star:    #fff9f0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--night);
+      color: var(--star);
+      font-family: 'Cormorant Garamond', serif;
+      overflow-x: hidden;
+      cursor: default;
+    }
+
+    /* ── STARS BACKGROUND ── */
+    #stars-canvas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    /* ── FLOATING HEARTS ── */
+    #hearts-container {
+      position: fixed;
+      inset: 0;
+      z-index: 1;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .heart {
+      position: absolute;
+      bottom: -60px;
+      font-size: 1.4rem;
+      animation: floatUp linear infinite;
+      opacity: 0;
+      filter: drop-shadow(0 0 6px #f7a8c4aa);
+    }
+
+    @keyframes floatUp {
+      0%   { transform: translateY(0) scale(0.6) rotate(-10deg); opacity: 0; }
+      10%  { opacity: 1; }
+      80%  { opacity: 0.7; }
+      100% { transform: translateY(-110vh) scale(1.1) rotate(12deg); opacity: 0; }
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      position: relative;
+      z-index: 2;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 24px;
+    }
+
+    /* ── HERO ── */
+    #hero {
+      text-align: center;
+      background: radial-gradient(ellipse at 50% 40%, #3b1265 0%, #1a0a2e 70%);
+    }
+
+    .sparkle-ring {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      border: 2px solid rgba(247,168,196,0.35);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 36px;
+      position: relative;
+      animation: spinRing 14s linear infinite;
+      box-shadow: 0 0 40px rgba(247,168,196,0.15), inset 0 0 40px rgba(247,168,196,0.08);
+    }
+
+    .sparkle-ring::before,
+    .sparkle-ring::after {
+      content: '';
+      position: absolute;
+      border-radius: 50%;
+      border: 1px solid rgba(240,208,128,0.25);
+    }
+    .sparkle-ring::before { inset: 10px; animation: spinRing 8s linear infinite reverse; }
+    .sparkle-ring::after  { inset: 22px; border-color: rgba(232,213,245,0.2); }
+
+    @keyframes spinRing {
+      to { transform: rotate(360deg); }
+    }
+
+    .ring-emoji { font-size: 4.5rem; animation: pulse 2.5s ease-in-out infinite; }
+
+    @keyframes pulse {
+      0%,100% { transform: scale(1); }
+      50%      { transform: scale(1.12); }
+    }
+
+    .hero-tag {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.1rem;
+      color: var(--gold);
+      letter-spacing: 0.18em;
+      margin-bottom: 14px;
+      opacity: 0;
+      animation: fadeSlideUp 1s 0.3s forwards;
+    }
+
+    h1.hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.6rem, 8vw, 5.5rem);
+      font-style: italic;
+      line-height: 1.1;
+      color: var(--rose);
+      text-shadow: 0 0 60px rgba(247,168,196,0.4);
+      opacity: 0;
+      animation: fadeSlideUp 1s 0.6s forwards;
+    }
+
+    h1.hero-title span {
+      color: var(--gold);
+      font-style: normal;
+    }
+
+    .hero-sub {
+      font-size: 1.25rem;
+      color: var(--lavender);
+      font-style: italic;
+      margin-top: 18px;
+      opacity: 0;
+      animation: fadeSlideUp 1s 0.9s forwards;
+    }
+
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .scroll-hint {
+      margin-top: 52px;
+      font-size: 0.82rem;
+      letter-spacing: 0.22em;
+      color: rgba(255,255,255,0.3);
+      text-transform: uppercase;
+      animation: bounce 2s infinite;
+      opacity: 0;
+      animation: fadeSlideUp 1s 1.5s forwards, bounce 2s 2.5s infinite;
+    }
+
+    @keyframes bounce {
+      0%,100% { transform: translateY(0); }
+      50%      { transform: translateY(8px); }
+    }
+
+    /* ── COUNTDOWN ── */
+    #countdown {
+      background: linear-gradient(160deg, #2d1050 0%, #1a0a2e 100%);
+      text-align: center;
+    }
+
+    .section-label {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1rem;
+      color: var(--gold);
+      letter-spacing: 0.2em;
+      margin-bottom: 10px;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      color: var(--rose);
+      margin-bottom: 48px;
+      font-style: italic;
+    }
+
+    #countdown-display {
+      display: flex;
+      gap: 24px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .cd-box {
+      background: rgba(247,168,196,0.08);
+      border: 1px solid rgba(247,168,196,0.2);
+      border-radius: 18px;
+      padding: 28px 32px;
+      min-width: 110px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 40px rgba(0,0,0,0.3), 0 0 20px rgba(247,168,196,0.06);
+      transition: transform 0.3s;
+    }
+
+    .cd-box:hover { transform: translateY(-6px); }
+
+    .cd-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.2rem;
+      color: var(--gold);
+      line-height: 1;
+      display: block;
+      text-shadow: 0 0 30px rgba(240,208,128,0.5);
+    }
+
+    .cd-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--lavender);
+      margin-top: 8px;
+      display: block;
+    }
+
+    .birthday-msg {
+      margin-top: 40px;
+      font-size: 1.3rem;
+      color: var(--rose);
+      font-style: italic;
+    }
+
+    /* ── LOVE LETTER ── */
+    #letter {
+      background: radial-gradient(ellipse at 30% 60%, #3b1265 0%, #1a0a2e 80%);
+    }
+
+    .letter-wrapper {
+      max-width: 680px;
+      width: 100%;
+      background: rgba(255,240,248,0.04);
+      border: 1px solid rgba(247,168,196,0.18);
+      border-radius: 24px;
+      padding: 56px 52px;
+      backdrop-filter: blur(16px);
+      box-shadow: 0 20px 80px rgba(0,0,0,0.5), 0 0 40px rgba(247,168,196,0.05);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .letter-wrapper::before {
+      content: '❝';
+      position: absolute;
+      top: 20px;
+      left: 28px;
+      font-size: 5rem;
+      color: rgba(247,168,196,0.12);
+      font-family: 'Playfair Display', serif;
+      line-height: 1;
+    }
+
+    .letter-wrapper::after {
+      content: '❞';
+      position: absolute;
+      bottom: 10px;
+      right: 28px;
+      font-size: 5rem;
+      color: rgba(247,168,196,0.12);
+      font-family: 'Playfair Display', serif;
+      line-height: 1;
+    }
+
+    .letter-dear {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.6rem;
+      color: var(--gold);
+      margin-bottom: 24px;
+    }
+
+    .letter-body {
+      font-size: 1.2rem;
+      line-height: 2;
+      color: rgba(255,249,240,0.88);
+      font-style: italic;
+    }
+
+    .letter-sign {
+      margin-top: 36px;
+      text-align: right;
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.5rem;
+      color: var(--rose);
+    }
+
+    /* ── WISHES ── */
+    #wishes {
+      background: linear-gradient(180deg, #1a0a2e 0%, #2d1050 100%);
+      text-align: center;
+    }
+
+    .wishes-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      max-width: 860px;
+      width: 100%;
+      margin-top: 36px;
+    }
+
+    .wish-card {
+      background: rgba(232,213,245,0.06);
+      border: 1px solid rgba(232,213,245,0.15);
+      border-radius: 18px;
+      padding: 32px 24px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      cursor: default;
+    }
+
+    .wish-card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 16px 50px rgba(247,168,196,0.12);
+      border-color: rgba(247,168,196,0.35);
+    }
+
+    .wish-icon { font-size: 2.4rem; margin-bottom: 14px; }
+
+    .wish-text {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: var(--lavender);
+      font-style: italic;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 40px 24px 60px;
+      background: #1a0a2e;
+    }
+
+    footer p {
+      font-family: 'Dancing Script', cursive;
+      font-size: 1.5rem;
+      color: var(--rose);
+      margin-bottom: 8px;
+    }
+
+    footer small {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.2);
+      letter-spacing: 0.12em;
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      width: 60px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--rose), transparent);
+      margin: 0 auto 36px;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 560px) {
+      .letter-wrapper { padding: 36px 28px; }
+      .cd-box { min-width: 80px; padding: 20px 18px; }
+      .cd-num { font-size: 2.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="stars-canvas"></canvas>
+<div id="hearts-container"></div>
+
+<!-- ── HERO ── -->
+<section id="hero">
+  <div class="sparkle-ring">
+    <span class="ring-emoji">💖</span>
+  </div>
+  <p class="hero-tag">✦ A Special Day ✦</p>
+  <h1 class="hero-title">Happy Birthday,<br><span>My Love</span></h1>
+  <p class="hero-sub">Today the universe celebrates you 🌙</p>
+  <p class="scroll-hint">↓ scroll ↓</p>
+</section>
+
+<!-- ── COUNTDOWN ── -->
+<section id="countdown">
+  <p class="section-label">✦ The Magic Moment ✦</p>
+  <h2 class="section-title">March 17 — Your Special Day</h2>
+  <div id="countdown-display">
+    <div class="cd-box"><span class="cd-num" id="cd-days">00</span><span class="cd-label">Days</span></div>
+    <div class="cd-box"><span class="cd-num" id="cd-hours">00</span><span class="cd-label">Hours</span></div>
+    <div class="cd-box"><span class="cd-num" id="cd-mins">00</span><span class="cd-label">Minutes</span></div>
+    <div class="cd-box"><span class="cd-num" id="cd-secs">00</span><span class="cd-label">Seconds</span></div>
+  </div>
+  <p class="birthday-msg" id="cd-status">✨ Counting down to your magical day…</p>
+</section>
+
+<!-- ── LOVE LETTER ── -->
+<section id="letter">
+  <p class="section-label">✦ From the Heart ✦</p>
+  <h2 class="section-title">A Letter for You</h2>
+  <div class="divider"></div>
+  <div class="letter-wrapper">
+    <p class="letter-dear">My Dearest Love,</p>
+    <p class="letter-body">
+      On this beautiful day, I want you to know that every single moment with you
+      has been the most precious gift life has ever given me. You are not just
+      the love of my life — you are the warmth in my mornings, the calm in my storms,
+      and the magic in every ordinary day.<br><br>
+      Your laughter is my favourite sound, your smile my favourite sight.
+      The world is a softer, sweeter, more luminous place simply because you exist in it.
+      Today, on your birthday, I wish you everything your heart desires —
+      because you deserve every star in this sky and more.<br><br>
+      Thank you for being you. Thank you for being mine.
+      I love you more than words will ever be able to hold. 🌙
+    </p>
+    <p class="letter-sign">Forever yours, with all my love 💕</p>
+  </div>
+</section>
+
+<!-- ── WISHES ── -->
+<section id="wishes">
+  <p class="section-label">✦ Birthday Wishes ✦</p>
+  <h2 class="section-title">May Your Day Be…</h2>
+  <div class="wishes-grid">
+    <div class="wish-card">
+      <div class="wish-icon">🌸</div>
+      <p class="wish-text">Filled with the softest joys and the most beautiful surprises</p>
+    </div>
+    <div class="wish-card">
+      <div class="wish-icon">✨</div>
+      <p class="wish-text">Sparkling with magic in every little moment you treasure</p>
+    </div>
+    <div class="wish-card">
+      <div class="wish-icon">🌙</div>
+      <p class="wish-text">As dreamy and luminous as the moonlit sky above us</p>
+    </div>
+    <div class="wish-card">
+      <div class="wish-icon">💫</div>
+      <p class="wish-text">Wrapped in warmth, laughter, and endless love from me</p>
+    </div>
+    <div class="wish-card">
+      <div class="wish-icon">🌹</div>
+      <p class="wish-text">As beautiful as you are — inside, outside, always</p>
+    </div>
+    <div class="wish-card">
+      <div class="wish-icon">🎂</div>
+      <p class="wish-text">Sweet and celebratory, because today is all about you</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <p>Happy Birthday, My Love 💖</p>
+  <small>Made with love · March 17, 2026</small>
+</footer>
+
+<script>
+  /* ── STARS ── */
+  const canvas = document.getElementById('stars-canvas');
+  const ctx = canvas.getContext('2d');
+  let stars = [];
+
+  function resize() {
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+
+  function initStars() {
+    stars = Array.from({ length: 200 }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      r: Math.random() * 1.4 + 0.3,
+      a: Math.random(),
+      da: (Math.random() * 0.004 + 0.001) * (Math.random() < 0.5 ? 1 : -1)
+    }));
+  }
+
+  function drawStars() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    stars.forEach(s => {
+      s.a = Math.max(0.05, Math.min(1, s.a + s.da));
+      if (s.a <= 0.05 || s.a >= 1) s.da *= -1;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(255,249,240,${s.a})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(drawStars);
+  }
+
+  window.addEventListener('resize', () => { resize(); initStars(); });
+  resize(); initStars(); drawStars();
+
+  /* ── HEARTS ── */
+  const heartsEl = document.getElementById('hearts-container');
+  const heartEmojis = ['💖', '💕', '💗', '💓', '🌸', '✨', '💫', '🌙'];
+
+  function spawnHeart() {
+    const h = document.createElement('span');
+    h.className = 'heart';
+    h.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+    h.style.left = Math.random() * 100 + 'vw';
+    h.style.fontSize = (Math.random() * 1.2 + 0.8) + 'rem';
+    const dur = Math.random() * 7 + 7;
+    h.style.animationDuration = dur + 's';
+    h.style.animationDelay    = Math.random() * 3 + 's';
+    heartsEl.appendChild(h);
+    setTimeout(() => h.remove(), (dur + 3) * 1000);
+  }
+
+  setInterval(spawnHeart, 600);
+  for (let i = 0; i < 8; i++) setTimeout(spawnHeart, i * 300);
+
+  /* ── COUNTDOWN ── */
+  function updateCountdown() {
+    const now      = new Date();
+    const year     = now.getFullYear();
+    let bday       = new Date(year, 2, 17, 0, 0, 0); // March 17
+    if (now >= bday) bday = new Date(year + 1, 2, 17, 0, 0, 0);
+
+    const diff = bday - now;
+    const isToday = new Date().getMonth() === 2 && new Date().getDate() === 17;
+
+    const statusEl = document.getElementById('cd-status');
+
+    if (isToday) {
+      document.getElementById('cd-days').textContent  = '00';
+      document.getElementById('cd-hours').textContent = '00';
+      document.getElementById('cd-mins').textContent  = '00';
+      document.getElementById('cd-secs').textContent  = '00';
+      statusEl.textContent = '🎉 Today is the day! Happy Birthday, My Love! 💖';
+      statusEl.style.color = '#f0d080';
+      return;
+    }
+
+    const days  = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const mins  = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    const secs  = Math.floor((diff % (1000 * 60)) / 1000);
+
+    document.getElementById('cd-days').textContent  = String(days).padStart(2,'0');
+    document.getElementById('cd-hours').textContent = String(hours).padStart(2,'0');
+    document.getElementById('cd-mins').textContent  = String(mins).padStart(2,'0');
+    document.getElementById('cd-secs').textContent  = String(secs).padStart(2,'0');
+    statusEl.textContent = '✨ Counting down to your magical day…';
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+</script>
+</body>
+</html>
